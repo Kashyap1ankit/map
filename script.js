@@ -18,16 +18,15 @@ navigator.geolocation.getCurrentPosition(
 
       L.marker([lat,lng])
       .addTo(map)
-      .bindPopup({
-        max-width:250,
-        min-width:100,
-        autoclose:false,
-        closeOnClick:false,
-      )
-      }).setPopUpContent("Workout").openPopup();
+      .bindPopup(L.popup({
+        maxWidth:250,
+        minWidth:100,
+        autoClose:false,
+        closeOnClick:false,}
+      )).setPopUpContent("Workout").openPopup();
 
 
       })
 ,function () {
     alert("Could not get your position");
-  };
+  }});
