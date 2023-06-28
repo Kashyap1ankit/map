@@ -23,7 +23,7 @@ navigator.geolocation.getCurrentPosition(
         minWidth:100,
         autoClose:false,
         closeOnClick:false,}
-      )).setPopUpContent("Workout").openPopup();
+      )).setPopupContent("Workout").openPopup();
 
 
       })
