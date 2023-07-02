@@ -1,1 +1,205 @@
+html {
+  height: 100%;
+  width: 100%;
+}
 
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+/* Styling the whole section  */
+
+.container {
+  display: flex;
+}
+
+/* Styling the form input area of taking inputs */
+
+.form--detail {
+  background-color: #2d3439;
+  height: 100vh;
+  width: 30vw;
+  overflow-y: scroll;
+}
+
+/* Logo Styling */
+
+.form--detail .logo {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.form--detail .logo img {
+  width: 30%;
+}
+
+.form--detail .form {
+  background-color: #42484d;
+  margin-top: 10%;
+  margin-left: 10%;
+  padding-top: 3%;
+  padding-bottom: 10%;
+  padding-right: 30%;
+  padding-left: 10%;
+  width: 40%;
+  height: 15%;
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-template-rows: 50px 50px;
+  border-radius: 10px;
+  transition-duration: 1s;
+}
+
+.form--detail .form-hidden {
+  opacity: 0;
+  transform: translateY(8rem);
+
+}
+
+.form--detail .form .input-detail {
+  font-family: "Manrope", sans-serif;
+  color: #ececec;
+  margin-right: 5px;
+  font-weight: bolder;
+}
+
+.form--detail .form #type {
+  width: 40%;
+  margin-left: 25px;
+}
+
+.form--detail .form #distance {
+  width: 40%;
+}
+
+.form--detail .form #duration {
+  width: 40%;
+}
+
+.form--detail .form #cadence {
+  width: 40%;
+}
+
+.form--detail .form #elevation {
+  width: 40%;
+}
+
+.cadenceHidden {
+  display: none;
+}
+
+.form--detail .form .submitbtn {
+  width: 45%;
+  height: 25%;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-left: 60%;
+  margin-top: 0%;
+  padding: 5% 5% 12%;
+  /* border-left: 3px solid red; */
+  cursor: pointer;
+  color: rgb(254, 238, 238);
+  box-shadow: rgba(255, 255, 255, 0.24) 0px 3px 8px;
+}
+
+.form--detail .form .submitbtn p {
+  text-align: center;
+  font-size: 100%;
+  margin-top: 2%;
+}
+
+.form--detail .form .submitbtn:hover {
+  background-color: #a76f6f;
+}
+
+
+/* Styling the form input area of displaying list */
+
+.form--detail ul {
+  list-style-type: none;
+
+}
+
+.form--detail ul li {
+  margin-top: 15%;
+  background-color: #42484d;
+  padding: 3px;
+  width: 90%;
+  border-radius: 10px;
+}
+
+.form--detail ul li h4 {
+  font-family: "Manrope", sans-serif;
+  color: #ececec;
+  margin-left: 10px;
+  font-size: 17px;
+}
+
+.form--detail ul li .display-workout {
+  display: flex;
+  justify-content: space-evenly;
+  color: white;
+}
+
+.running-workout {
+  border-left: 5px solid #ffb545;
+}
+
+.cycling-workout {
+  border-left: 5px solid #00c46a;
+}
+
+/* Styling the footer */
+
+.copyright {
+  color: rgba(255, 255, 255, 0.592);
+  margin-top: 20%;
+  padding: 10px;
+}
+
+.copyright u {
+  color: white;
+}
+
+/* Styling the map area */
+
+#map {
+  height: 100vh;
+  width: 70vw;
+}
+
+.map-conatiner .modal-conatiner {
+  background-color: #B31312;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  z-index: 100;
+  transition-duration: 1s;
+  padding: 20px;
+  display: flex;
+  border-radius: 10px;
+}
+
+.map-conatiner .modal-conatiner p {
+  color: #EEE2DE;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.map-conatiner .modal-conatiner .cut-modal {
+  /* position: relative;
+  top: 0%;
+  left: 90%; */
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+
+
+}
+
+.modal-hidden {
+  display: none;
+  transform: translateY(8rem);
+}
