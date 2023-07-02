@@ -124,7 +124,8 @@ const _hideForm = function() {
 
     //Hiding the from
 
-    formInput.classList.add("form-hidden")
+    formInput.classList.add("form-hidden");
+    distance.value = duration.value = elevation.value = cadence.value = ""
   }
 
   else {
@@ -157,6 +158,7 @@ const _appearmarker = function(workout) {
       })).setPopupContent(`${workout.type === "Running" ? "🏃" : "🚴‍♂️"}${workout.type} on ${workout.date.getDate()} ${months[workout.date.getMonth()]} at ${hour}:${minute}`)
       .openPopup();
   }
+
 }
 
 //Revealing the input and getting the distance input in focus
@@ -233,12 +235,16 @@ const _changeCadence = function() {
   changeable.forEach(function(ele) {
     ele.classList.toggle("cadenceHidden")
   })
+  distance.value = duration.value = elevation.value = cadence.value = ""
 }
 
-const _cutmodalfn = function(){
+const _cutmodalfn = function() {
   modal.classList.add("modal-hidden");
   wholeForm.style.filter = "blur(0px)";
   mapSection.style.filter = "blur(0px)";
+
+  distance.value = duration.value = elevation.value = cadence.value = "";
+  distance.focus();
 }
 
 //Reveal the modal and blur background
@@ -247,11 +253,13 @@ const _modalOpen = function() {
   modal.classList.remove("modal-hidden");
   wholeForm.style.filter = "blur(5px)";
   mapSection.style.filter = "blur(10px)";
+  distance.value = duration.value = elevation.value = cadence.value = "";
+  distance.focus();
 }
 
 //When cut modal is clicked
 
-cutModal.addEventListener('click',_cutmodalfn)
+cutModal.addEventListener('click', _cutmodalfn)
 
 //Whenever the type of workout is chnaged then elevation and cadence got toggled
 
