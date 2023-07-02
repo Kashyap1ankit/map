@@ -43,7 +43,7 @@ html {
   padding-bottom: 10%;
   padding-right: 30%;
   padding-left: 10%;
-  width: 40%;
+  width: 45%;
   height: 15%;
   display: grid;
   grid-template-columns: 150px 150px;
@@ -61,13 +61,13 @@ html {
 .form--detail .form .input-detail {
   font-family: "Manrope", sans-serif;
   color: #ececec;
-  margin-right: 5px;
+  margin-right: 0px;
   font-weight: bolder;
 }
 
 .form--detail .form #type {
   width: 40%;
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 .form--detail .form #distance {
@@ -193,6 +193,7 @@ html {
   top: 0%;
   left: 90%; */
   font-size: 30px;
+
   cursor: pointer;
   color: white;
 
