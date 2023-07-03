@@ -230,12 +230,12 @@ html {
 
   .form--detail .form {
     margin-top: 3%;
-    margin-left: 9%;
+    margin-left: 5%;
     padding-top: 2%;
     padding-bottom: 25%;
     padding-right: 5%;
     padding-left: 5%;
-    width: 70%;
+    width: 75%;
     height: 10%;
     grid-template-columns: 150px 150px;
     grid-template-rows: 50px 50px;
