@@ -96,7 +96,7 @@ html {
   border-radius: 50%;
   background-color: transparent;
   margin-left: 60%;
-  margin-top: 0%;
+  margin-top: -10%;
   padding: 5% 5% 12%;
   /* border-left: 3px solid red; */
   cursor: pointer;
@@ -204,3 +204,136 @@ html {
   display: none;
   transform: translateY(8rem);
 }
+
+
+/* Media Queries */
+
+@media (max-width: 400px) {
+
+  .container {
+    display: block;
+  }
+
+  .form--detail {
+
+    width: 100vw;
+    height: 45vh;
+
+  }
+
+  /* Logo Styling */
+
+  .form--detail .logo img {
+    width: 30%;
+    margin-top: 0%;
+  }
+
+  .form--detail .form {
+    margin-top: 3%;
+    margin-left: 9%;
+    padding-top: 2%;
+    padding-bottom: 25%;
+    padding-right: 5%;
+    padding-left: 5%;
+    width: 70%;
+    height: 10%;
+    grid-template-columns: 150px 150px;
+    grid-template-rows: 50px 50px;
+  }
+
+  .form--detail .form .input-detail {
+    font-size: 15px;
+    font-weight: bolder;
+  }
+
+  .form--detail .form #type {
+    width: 50%;
+    margin-left: 20px;
+  }
+
+  .form--detail .form #distance {
+    width: 40%;
+  }
+
+  .form--detail .form #duration {
+    width: 40%;
+  }
+
+  .form--detail .form #cadence {
+    width: 40%;
+  }
+
+  .form--detail .form #elevation {
+    width: 40;
+  }
+
+
+  .form--detail .form .submitbtn {
+    width: 25%;
+    height: 25%;
+    border-radius: 30%;
+    margin-left: 75%;
+    margin-top: -10%;
+    padding: 2% 2% 10%;
+
+  }
+
+  .form--detail .form .submitbtn p {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 2%;
+  }
+
+
+
+  /* Styling the form input area of displaying list */
+
+  .form--detail ul li {
+    margin-top: 1%;
+    padding: 3px;
+    width: 90%;
+
+  }
+
+  .form--detail ul li h4 {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+  .form--detail ul li .display-workout {
+    color: white;
+    font-size: 10px;
+  }
+
+
+
+  /* Styling the footer */
+
+  .copyright {
+    padding: 5px;
+    font-size: 10px;
+  }
+
+  /* Styling the map area */
+
+  #map {
+    width: 100vw;
+    height: 55vh;
+  }
+
+  .map-conatiner .modal-conatiner {
+    position: absolute;
+    top: 45%;
+    left: 10%;
+    padding: 10px;
+
+  }
+
+  .map-conatiner .modal-conatiner p {
+    font-size: 15px;
+  }
+
+  .map-conatiner .modal-conatiner .cut-modal {
+    font-size: 20px;
+
+  }}
