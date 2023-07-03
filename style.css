@@ -292,6 +292,7 @@ html {
     margin-top: 1%;
     padding: 3px;
     width: 90%;
+     margin-left:5%;
 
   }
 
@@ -303,6 +304,7 @@ html {
   .form--detail ul li .display-workout {
     color: white;
     font-size: 10px;
+   
   }
 
 
