@@ -288,6 +288,12 @@ html {
 
   /* Styling the form input area of displaying list */
 
+    .form--detail .workout-type {
+    margin-left: 0%;
+    margin-right: 15%;
+  }
+
+
   .form--detail ul li {
     margin-top: 1%;
     padding: 3px;
