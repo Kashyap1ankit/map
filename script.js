@@ -15,11 +15,6 @@ const months = ["January", "February", "March", "April", "May", "June", "July", 
 const mapSection = document.getElementById("map");
 const cutModal = document.querySelector(".cut-modal");
 
-//Making the map and mapEvent global varibales
-
-let map;
-let mapEvent;
-let workout;
 
 //Creating a parent workout class
 
@@ -55,126 +50,200 @@ class Cycling extends Workout {
   }
 }
 
-//Creating workout for every click
 
-const _createWorkout = function() {
 
-  const distanceMarker = +distance.value;
-  const durationMarker = +duration.value;
-  const coordsMarker = [mapEvent.latlng.lat, mapEvent.latlng.lat];
+class App {
 
-  if (selectType.value === "running") {
-    const cadenceMarker = +cadence.value;
-    workout = new Running(coordsMarker, distanceMarker, durationMarker, cadenceMarker)
+  //Making the map and mapEvent global varibales
+
+#map;
+#mapEvent;
+#workout;
+
+  constructor() {
+
+    //1.Calling the API
+
+    navigator.geolocation.getCurrentPosition(this._getLocation.bind(this), function() {
+      alert("Can't Get your location");
+    });
+
+    //2.Adding the event listner on input fields 
+
+
+    goBtn.addEventListener('click', this._hideForm.bind(this))
+
+    
+//3.When cut modal is clicked
+
+cutModal.addEventListener('click', this._cutmodalfn.bind(this))
+
+//4.Whenever the type of workout is chnaged then elevation and cadence got toggled
+
+selectType.addEventListener("change", this._changeCadence.bind(this))
+
+
+
   }
 
-  if (selectType.value === "cycling") {
-    const elevationMarker = +elevation.value;
-    workout = new Cycling(coordsMarker, distanceMarker, durationMarker, elevationMarker)
+  
 
-  }
+  //Getting the positon of the user
 
-}
+  _getLocation = function(position) {
 
-//Validating the inputs are valid or not?
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
 
-const _validInputs = function(workout) {
+    this.#map = L.map("map").setView([lat, lng], 15);
 
-  if (workout.type === "Running") {
-    if (Number.isFinite(workout.distance) && Number.isFinite(workout.duration) && Number.isFinite(workout.cadence))
-      return true
-  }
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo( this.#map);
 
-
-  if (workout.type === "Cycling") {
-    if (Number.isFinite(workout.distance) && Number.isFinite(workout.duration) && Number.isFinite(workout.elevation))
-      return true
-  }
-
-};
-
-const _positiveInputs = function(workout) {
-  if (workout.type === "Running") {
-    if (workout.distance > 0 && workout.duration > 0 && workout.cadence > 0)
-      return true
-  }
-
-  if (workout.type === "Cycling") {
-    if (workout.distance > 0 && workout.duration > 0 && workout.elevation > 0)
-      return true
-  }
-}
-//Removing the Input field form when go button is clicked and appearing the marker then
-
-const _hideForm = function() {
-
-  //Creating the workout after every click
-
-  _createWorkout();
-
-  //Validating the inputs
-
-  if (_validInputs(workout) && _positiveInputs(workout)) { //Showing the marker with the help of created workout
-
-    _appearmarker(workout);
-
-    //Showing the workout details
-
-    _revealWorkout(workout);
-
-    //Hiding the from
-
-    formInput.classList.add("form-hidden");
-    distance.value = duration.value = elevation.value = cadence.value = ""
-  }
-
-  else {
-    _modalOpen()
-  }
-
-}
-
-
-//Displaying the marker on map
-
-const _appearmarker = function(workout) {
-
-  // e.preventDefault();
-
-  //Geeting the information where the map is clicked last
-  {
-    const { lat, lng } = mapEvent.latlng;
-    const hour = workout.date.getHours();
-    const minute = workout.date.getMinutes();
-
+    //Adding marker when loads
 
     L.marker([lat, lng])
-      .addTo(map)
+      .addTo(this.#map)
       .bindPopup(L.popup({
         maxWidth: 250,
         minWidth: 100,
         autoClose: false,
         closeOnClick: false,
-      })).setPopupContent(`${workout.type === "Running" ? "🏃" : "🚴‍♂️"}${workout.type} on ${workout.date.getDate()} ${months[workout.date.getMonth()]} at ${hour}:${minute}`)
+      })).setPopupContent("Here You Are😉")
+      .openPopup();
+
+    //When map is clicked
+
+    this.#map.on('click',this.revealInput.bind(this))
+
+  };
+
+
+  //Revealing the input and getting the distance input in focus
+  
+ revealInput = function(mapE) {
+  this.#mapEvent = mapE;
+  formInput.classList.remove("form-hidden")
+  distance.focus();
+}
+
+  
+
+  //Creating workout for every click
+
+  _createWorkout = function() {
+
+    const distanceMarker = +distance.value;
+    const durationMarker = +duration.value;
+    const coordsMarker = [this.#mapEvent.latlng.lat, this.#mapEvent.latlng.lat];
+
+    if (selectType.value === "running") {
+      const cadenceMarker = +cadence.value;
+      this.#workout = new Running(coordsMarker, distanceMarker, durationMarker, cadenceMarker)
+    }
+
+    if (selectType.value === "cycling") {
+      const elevationMarker = +elevation.value;
+     this.#workout = new Cycling(coordsMarker, distanceMarker, durationMarker, elevationMarker)
+
+    }
+
+  }
+
+  
+//Removing the Input field form when go button is clicked and appearing the marker then
+  
+  _hideForm = function() {
+
+    //Creating the workout after every click
+
+     this._createWorkout();
+
+    //Validating the inputs
+
+    if (this._validInputs(this.#workout) && this._positiveInputs(this.#workout)) { //Showing the marker with the help of created workout
+
+      this._appearmarker(this.#workout);
+
+      //Showing the workout details
+
+      this._revealWorkout(this.#workout);
+
+      //Hiding the from
+
+      formInput.classList.add("form-hidden");
+      distance.value = duration.value = elevation.value = cadence.value = ""
+    }
+
+    else {
+      this._modalOpen()
+    }
+
+  }
+
+  //Reveal the modal and blur background
+
+ _modalOpen = function() {
+  modal.classList.remove("modal-hidden");
+  wholeForm.style.filter = "blur(5px)";
+  mapSection.style.filter = "blur(10px)";
+  distance.value = duration.value = elevation.value = cadence.value = "";
+  distance.focus();
+}
+
+  //Displaying the marker on map
+
+_appearmarker = function(workout) {
+  //Geeting the information where the map is clicked last
+  {
+    const { lat, lng } = this.#mapEvent.latlng;
+    const hour = this.#workout.date.getHours();
+    const minute = this.#workout.date.getMinutes();
+
+
+    L.marker([lat, lng])
+      .addTo(this.#map)
+      .bindPopup(L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        autoClose: false,
+        closeOnClick: false,
+      })).setPopupContent(`${this.#workout.type === "Running" ? "🏃" : "🚴‍♂️"}${this.#workout.type} on ${this.#workout.date.getDate()} ${months[this.#workout.date.getMonth()]} at ${hour}:${minute}`)
       .openPopup();
   }
 
 }
 
-//Revealing the input and getting the distance input in focus
 
-const revealInput = function(mapE) {
-  mapEvent = mapE;
-  formInput.classList.remove("form-hidden")
+  //Changing the cadence and elevation
+
+ _changeCadence = function() {
+  changeable.forEach(function(ele) {
+    ele.classList.toggle("cadenceHidden")
+  })
+  distance.value = duration.value = elevation.value = cadence.value = ""
+}
+
+
+  //When cut mark is clicked then modal get closed
+  
+ _cutmodalfn = function() {
+  modal.classList.add("modal-hidden");
+  wholeForm.style.filter = "blur(0px)";
+  mapSection.style.filter = "blur(0px)";
+
+  distance.value = duration.value = elevation.value = cadence.value = "";
   distance.focus();
 }
 
-//Revealing the workout detail
+  //Revealing the workout detail
 
-const _revealWorkout = function(workout) {
+ _revealWorkout = function(workout) {
   let html;
 
-  if (workout.type === "Running") {
+  if (this.#workout.type === "Running") {
     html = `<ul class="workout-type">
              <li class="running-workout">
           <h4> Running on ${workout.date.getDate()} ${months[workout.date.getMonth()]}</h4>
@@ -187,7 +256,7 @@ const _revealWorkout = function(workout) {
         </li>
         </ul>`}
 
-  if (workout.type === "Cycling") {
+  if (this.#workout.type === "Cycling") {
     html = ` <ul class="workout-type">
     <li class="cycling-workout">
           <h4>Cycling on  ${workout.date.getDate()} ${months[workout.date.getMonth()]}</h4>
@@ -205,71 +274,38 @@ const _revealWorkout = function(workout) {
 
 }
 
-//Getting the positon of the user
+  //Validating the inputs are valid or not?
 
-const _getLocation = function(position) {
+ _validInputs = function(workout) {
 
-  const lat = position.coords.latitude;
-  const lng = position.coords.longitude;
+  if (this.#workout.type === "Running") {
+    if (Number.isFinite(this.#workout.distance) && Number.isFinite(this.#workout.duration) && Number.isFinite(this.#workout.cadence))
+      return true
+  }
 
-  map = L.map("map").setView([lat, lng], 15);
 
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  //When map is clicked
-
-  map.on('click', revealInput)
+  if (this.#workout.type === "Cycling") {
+    if (Number.isFinite(this.#workout.distance) && Number.isFinite(this.#workout.duration) && Number.isFinite(this.#workout.elevation))
+      return true
+  }
 
 };
 
-//Adding the event listner on input fields
+ _positiveInputs = function(workout) {
+  if (this.#workout.type === "Running") {
+    if (this.#workout.distance > 0 && this.#workout.duration > 0 && this.#workout.cadence > 0)
+      return true
+  }
 
-goBtn.addEventListener('click', _hideForm)
-
-//Changing the cadence and elevation
-
-const _changeCadence = function() {
-  changeable.forEach(function(ele) {
-    ele.classList.toggle("cadenceHidden")
-  })
-  distance.value = duration.value = elevation.value = cadence.value = ""
+  if (this.#workout.type === "Cycling") {
+    if (this.#workout.distance > 0 && this.#workout.duration > 0 && this.#workout.elevation > 0)
+      return true
+  }
 }
 
-const _cutmodalfn = function() {
-  modal.classList.add("modal-hidden");
-  wholeForm.style.filter = "blur(0px)";
-  mapSection.style.filter = "blur(0px)";
 
-  distance.value = duration.value = elevation.value = cadence.value = "";
-  distance.focus();
+
 }
 
-//Reveal the modal and blur background
-
-const _modalOpen = function() {
-  modal.classList.remove("modal-hidden");
-  wholeForm.style.filter = "blur(5px)";
-  mapSection.style.filter = "blur(10px)";
-  distance.value = duration.value = elevation.value = cadence.value = "";
-  distance.focus();
-}
-
-//When cut modal is clicked
-
-cutModal.addEventListener('click', _cutmodalfn)
-
-//Whenever the type of workout is chnaged then elevation and cadence got toggled
-
-selectType.addEventListener("change", _changeCadence)
-
-
-//Calling the API
-
-navigator.geolocation.getCurrentPosition(_getLocation, function() {
-  alert("Can't Get your location");
-});
-
+const app = new App();
 
