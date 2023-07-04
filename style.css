@@ -50,6 +50,7 @@ html {
   grid-template-rows: 50px 50px;
   border-radius: 10px;
   transition-duration: 1s;
+  z-index: 2;
 }
 
 .form--detail .form-hidden {
@@ -119,10 +120,12 @@ html {
 
 .form--detail ul {
   list-style-type: none;
-
+  cursor: pointer;
+  z-index: 50;
 }
 
 .form--detail ul li {
+
   margin-top: 15%;
   background-color: #42484d;
   padding: 3px;
@@ -152,10 +155,26 @@ html {
 }
 
 /* Styling the footer */
+.deleteData {
+  margin-top: 10%;
+  text-align: center;
+}
+
+.deleteData button {
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 15px;
+  background-color: #d11a2a;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px, rgb(255, 255, 255) 0px 0px 0px 2px;
+  cursor: pointer;
+}
 
 .copyright {
   color: rgba(255, 255, 255, 0.592);
-  margin-top: 20%;
+  margin-top: 10%;
   padding: 10px;
 }
 
@@ -287,8 +306,7 @@ html {
 
 
   /* Styling the form input area of displaying list */
-
-    .form--detail .workout-type {
+  .form--detail .workout-type {
     margin-left: 0%;
     margin-right: 15%;
   }
@@ -298,7 +316,7 @@ html {
     margin-top: 1%;
     padding: 3px;
     width: 90%;
-     margin-left:5%;
+
 
   }
 
@@ -310,7 +328,6 @@ html {
   .form--detail ul li .display-workout {
     color: white;
     font-size: 10px;
-   
   }
 
 
@@ -344,4 +361,18 @@ html {
   .map-conatiner .modal-conatiner .cut-modal {
     font-size: 20px;
 
-  }}
+  }
+
+  .deleteData {
+    margin-top: 10%;
+    text-align: center;
+  }
+
+  .deleteData button {
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 7px;
+
+  }
+
+}
